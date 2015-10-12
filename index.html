@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html >
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Space Invaders</title>
+		<script type="text/javascript" src="js/Game.js"></script>
+		<script type="text/javascript" src="js/Entity.js"></script>
+		<script type="text/javascript" src="js/Alien.js"></script>
+		<script type="text/javascript" src="js/Shot.js"></script>
+		<script type="text/javascript" src="js/Spaceshift.js"></script>
+		<script type="text/javascript" src="js/Sprites.js"></script>
+		
+		<script>
+			var game, timer;
+			
+			/**
+			 * Inicia una nueva instancia de la clase Game, enlaza los eventos del teclado
+			 * y pinta el escenario cada 25 milisegundos.
+			 */
+			function start() {
+				game = new Game("context");
+				document.onkeydown = function(e) {
+					game.keyPress(e);
+				};
+				document.onkeyup = function(e) {
+					game.keyUp(e);
+				};
+				timer = setInterval("game.launch();", 25);
+			}
+			
+			/**
+			 * Muestra un mensaje en la página web.
+			 * @param {Object} text		Mensaje a mostrar
+			 * @param {Object} newLine	Si es true inserta un nuevo salto de línea antes del mensaje.
+			 */
+			function log(text, newLine) {
+				var layer = document.getElementById("log");
+				if (newLine) {
+					layer.innerHTML += "<br />" + text;
+				}
+				else {
+					layer.innerHTML = text;
+				}
+			}
+			
+			/**
+			 * Detiene la ejecución del juego.
+			 */
+			function stop() {
+				clearInterval(timer);
+			}
+		</script>
+	</head>
+
+	<body onload="start();">
+		<canvas id="context"> </canvas>
+		<br />
+		<ul>
+			<li><code>Cursores</code> para mover la nave de izquierda a derecha.</li>
+			<li><code>Espacio</code> para disparar.</li>
+			<li><code>Entrar</code> para empezar de nuevo cuando finalice la partida.</li>
+		</ul>
+		<p>Basado en: 
+			<a href="http://www.jlabstudio.com/webgl/2011/12/tutorial-canvas-2d-como-hacer-un-juego-en-javascript-1a-parte/">
+				www.jlabstudio.com/webgl/2011/12/tutorial-canvas-2d-como-hacer-un-juego-en-javascript-1a-parte/
+			</a>
+		</p>
+		<button onclick="stop();">Parar</button>
+		<div id="log"> </div>
+	</body>
+</html>
